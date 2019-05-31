@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Shop";
+}
+
+<h2>Shop</h2>
+
+@if(ViewBag.Message != null)
+{
+    <p>@ViewBag.Message</p>
+}
+<form action="../Home/Shop" method="post">
+    <div style="clear:both">
+        <input type="text" name="search" placeholder="Search for an item" style="width: 100%;
+            height: 45px; font-size: large; border: 1px solid green;" />
+        <input type="submit" name="submit" value="Search" style="width: 75%; height:45px;" />
+    </div>
+      @{
+            foreach (Item item in ViewBag.Items)
+            {
+    <div style="float:left; clear:none; margin: 10px;">
+        <div style="background-image:url('../Images/@item.ImageName');
+                                 height: 200px; width: 280px">
+        </div>
+        <div style="height: auto; width: 280px; border: 1px solid red;">
+            <b>@item.Name @item.Price.ToString("C2")</b><br />
+            
+            @item.Quantity<br />    
+            @item.Description
+            @if (Session["CurrentUser"] != null)
+            {
+            <br />
+                <a href="../Home/MakePurchase?name=@item.Name" class="btn">Buy</a>
+            }
+        </div>
+    </div>
+        }
+
+        }
+</form>
+
